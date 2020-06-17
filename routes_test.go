@@ -27,6 +27,7 @@ func TestRoutes_GetById(t *testing.T) {
 		Methods:      StringSlice([]string{"GET"}),
 		Hosts:        StringSlice([]string{"foo.com"}),
 		Paths:        StringSlice([]string{"/bar"}),
+		Headers:      map[string][]string{"foo": []string{"bar"}},
 		StripPath:    Bool(true),
 		PreserveHost: Bool(true),
 		Service:      ToId(*createdService.Id),
@@ -166,6 +167,7 @@ func TestRoutes_GetRoutesFromServiceId(t *testing.T) {
 		Methods:      StringSlice([]string{"GET"}),
 		Hosts:        StringSlice([]string{"foo.com"}),
 		Paths:        StringSlice([]string{"/bar"}),
+		Headers:      map[string][]string{"foo": []string{"bar"}},
 		StripPath:    Bool(true),
 		PreserveHost: Bool(true),
 		Service:      ToId(*createdService.Id),
@@ -213,6 +215,7 @@ func TestRoutes_UpdateRouteById(t *testing.T) {
 		Methods:      StringSlice([]string{"GET"}),
 		Hosts:        StringSlice([]string{"foo.com"}),
 		Paths:        StringSlice([]string{"/bar"}),
+		Headers:      map[string][]string{"foo": []string{"bar"}},
 		StripPath:    Bool(true),
 		PreserveHost: Bool(true),
 		Service:      ToId(*createdService.Id),
@@ -224,6 +227,7 @@ func TestRoutes_UpdateRouteById(t *testing.T) {
 	assert.NotNil(t, createdRoute)
 
 	routeRequest.Paths = StringSlice([]string{"/qux"})
+	routeRequest.Headers = map[string][]string{"foo": []string{"baz"}}
 	updatedRoute, err := client.Routes().UpdateById(*createdRoute.Id, routeRequest)
 	result, err := client.Routes().GetById(*createdRoute.Id)
 
@@ -256,6 +260,7 @@ func TestRoutes_UpdateRouteMethodsToEmptyArray(t *testing.T) {
 		Methods:      StringSlice([]string{"GET"}),
 		Hosts:        StringSlice([]string{"foo.com"}),
 		Paths:        StringSlice([]string{"/foo"}),
+		Headers:      map[string][]string{"foo": []string{"bar"}},
 		StripPath:    Bool(true),
 		PreserveHost: Bool(true),
 		Service:      ToId(*createdService.Id),
@@ -274,6 +279,7 @@ func TestRoutes_UpdateRouteMethodsToEmptyArray(t *testing.T) {
 	assert.Equal(t, StringSlice([]string{}), updatedRoute.Methods)
 	assert.Equal(t, routeRequest.Hosts, updatedRoute.Hosts)
 	assert.Equal(t, routeRequest.Paths, updatedRoute.Paths)
+	assert.Equal(t, routeRequest.Headers, updatedRoute.Headers)
 	assert.Equal(t, routeRequest.StripPath, updatedRoute.StripPath)
 	assert.Equal(t, routeRequest.PreserveHost, updatedRoute.PreserveHost)
 
@@ -284,6 +290,7 @@ func TestRoutes_UpdateRouteMethodsToEmptyArray(t *testing.T) {
 	assert.Equal(t, StringSlice([]string{}), fetchedRoute.Methods)
 	assert.Equal(t, routeRequest.Hosts, fetchedRoute.Hosts)
 	assert.Equal(t, routeRequest.Paths, fetchedRoute.Paths)
+	assert.Equal(t, routeRequest.Headers, updatedRoute.Headers)
 	assert.Equal(t, routeRequest.StripPath, fetchedRoute.StripPath)
 	assert.Equal(t, routeRequest.PreserveHost, fetchedRoute.PreserveHost)
 
@@ -313,6 +320,7 @@ func TestRoutes_UpdateRouteHostsToEmptyArray(t *testing.T) {
 		Methods:      StringSlice([]string{"GET"}),
 		Hosts:        StringSlice([]string{"foo.com"}),
 		Paths:        StringSlice([]string{"/foo"}),
+		Headers:      map[string][]string{"foo": []string{"bar"}},
 		StripPath:    Bool(true),
 		PreserveHost: Bool(true),
 		Service:      ToId(*createdService.Id),
@@ -331,6 +339,7 @@ func TestRoutes_UpdateRouteHostsToEmptyArray(t *testing.T) {
 	assert.Equal(t, routeRequest.Methods, updatedRoute.Methods)
 	assert.Equal(t, StringSlice([]string{}), updatedRoute.Hosts)
 	assert.Equal(t, routeRequest.Paths, updatedRoute.Paths)
+	assert.Equal(t, routeRequest.Headers, updatedRoute.Headers)
 	assert.Equal(t, routeRequest.StripPath, updatedRoute.StripPath)
 	assert.Equal(t, routeRequest.PreserveHost, updatedRoute.PreserveHost)
 
@@ -341,6 +350,7 @@ func TestRoutes_UpdateRouteHostsToEmptyArray(t *testing.T) {
 	assert.Equal(t, routeRequest.Methods, fetchedRoute.Methods)
 	assert.Equal(t, StringSlice([]string{}), fetchedRoute.Hosts)
 	assert.Equal(t, routeRequest.Paths, fetchedRoute.Paths)
+	assert.Equal(t, routeRequest.Headers, updatedRoute.Headers)
 	assert.Equal(t, routeRequest.StripPath, fetchedRoute.StripPath)
 	assert.Equal(t, routeRequest.PreserveHost, fetchedRoute.PreserveHost)
 
@@ -370,6 +380,7 @@ func TestRoutes_UpdateRoutePathsToEmptyArray(t *testing.T) {
 		Methods:      StringSlice([]string{"GET"}),
 		Hosts:        StringSlice([]string{"foo.com"}),
 		Paths:        StringSlice([]string{"/foo"}),
+		Headers:      map[string][]string{"foo": []string{"bar"}},
 		StripPath:    Bool(true),
 		PreserveHost: Bool(true),
 		Service:      ToId(*createdService.Id),
@@ -388,6 +399,7 @@ func TestRoutes_UpdateRoutePathsToEmptyArray(t *testing.T) {
 	assert.Equal(t, routeRequest.Methods, updatedRoute.Methods)
 	assert.Equal(t, routeRequest.Hosts, updatedRoute.Hosts)
 	assert.Equal(t, StringSlice([]string{}), updatedRoute.Paths)
+	assert.Equal(t, routeRequest.Headers, updatedRoute.Headers)
 	assert.Equal(t, routeRequest.StripPath, updatedRoute.StripPath)
 	assert.Equal(t, routeRequest.PreserveHost, updatedRoute.PreserveHost)
 
@@ -398,6 +410,7 @@ func TestRoutes_UpdateRoutePathsToEmptyArray(t *testing.T) {
 	assert.Equal(t, routeRequest.Methods, fetchedRoute.Methods)
 	assert.Equal(t, routeRequest.Hosts, fetchedRoute.Hosts)
 	assert.Equal(t, StringSlice([]string{}), fetchedRoute.Paths)
+	assert.Equal(t, routeRequest.Headers, updatedRoute.Headers)
 	assert.Equal(t, routeRequest.StripPath, fetchedRoute.StripPath)
 	assert.Equal(t, routeRequest.PreserveHost, fetchedRoute.PreserveHost)
 
@@ -406,7 +419,65 @@ func TestRoutes_UpdateRoutePathsToEmptyArray(t *testing.T) {
 
 	err = client.Services().DeleteServiceById(*createdService.Id)
 	assert.Nil(t, err)
+}
 
+func TestRoutes_UpdateRouteHeadersToEmptyArray(t *testing.T) {
+	serviceRequest := &ServiceRequest{
+		Name:     String("service-name" + uuid.NewV4().String()),
+		Protocol: String("http"),
+		Host:     String("foo.com"),
+	}
+
+	client := NewClient(NewDefaultConfig())
+	createdService, err := client.Services().Create(serviceRequest)
+
+	assert.Nil(t, err)
+	assert.NotNil(t, createdService)
+
+	routeRequest := &RouteRequest{
+		Protocols:    StringSlice([]string{"http"}),
+		Methods:      StringSlice([]string{"GET"}),
+		Hosts:        StringSlice([]string{"foo.com"}),
+		Paths:        StringSlice([]string{"/foo"}),
+		Headers:      map[string][]string{"foo": []string{"bar"}},
+		StripPath:    Bool(true),
+		PreserveHost: Bool(true),
+		Service:      ToId(*createdService.Id),
+	}
+
+	createdRoute, err := client.Routes().Create(routeRequest)
+
+	assert.Nil(t, err)
+
+	routeRequest.Headers = map[string][]string{}
+
+	updatedRoute, err := client.Routes().UpdateById(*createdRoute.Id, routeRequest)
+
+	assert.Nil(t, err)
+	assert.Equal(t, routeRequest.Protocols, updatedRoute.Protocols)
+	assert.Equal(t, routeRequest.Methods, updatedRoute.Methods)
+	assert.Equal(t, routeRequest.Hosts, updatedRoute.Hosts)
+	assert.Equal(t, routeRequest.Paths, updatedRoute.Paths)
+	assert.Equal(t, map[string][]string{}, updatedRoute.Headers)
+	assert.Equal(t, routeRequest.StripPath, updatedRoute.StripPath)
+	assert.Equal(t, routeRequest.PreserveHost, updatedRoute.PreserveHost)
+
+	fetchedRoute, err := client.Routes().GetById(*createdRoute.Id)
+
+	assert.Nil(t, err)
+	assert.Equal(t, routeRequest.Protocols, fetchedRoute.Protocols)
+	assert.Equal(t, routeRequest.Methods, fetchedRoute.Methods)
+	assert.Equal(t, routeRequest.Hosts, fetchedRoute.Hosts)
+	assert.Equal(t, routeRequest.Paths, fetchedRoute.Paths)
+	assert.Equal(t, map[string][]string{}, updatedRoute.Headers)
+	assert.Equal(t, routeRequest.StripPath, fetchedRoute.StripPath)
+	assert.Equal(t, routeRequest.PreserveHost, fetchedRoute.PreserveHost)
+
+	err = client.Routes().DeleteById(*createdRoute.Id)
+	assert.Nil(t, err)
+
+	err = client.Services().DeleteServiceById(*createdService.Id)
+	assert.Nil(t, err)
 }
 
 func Test_AllRouteEndpointsShouldReturnErrorWhenRequestUnauthorised(t *testing.T) {

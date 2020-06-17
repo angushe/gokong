@@ -9,6 +9,7 @@ require (
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/google/go-querystring v1.0.0
+	github.com/kisielk/errcheck v1.2.0 // indirect
 	github.com/lib/pq v1.2.0
 	github.com/opencontainers/go-digest v1.0.0-rc1 // indirect
 	github.com/opencontainers/image-spec v1.0.1 // indirect
@@ -20,6 +21,7 @@ require (
 	github.com/satori/go.uuid v1.2.0
 	github.com/sirupsen/logrus v1.4.2 // indirect
 	github.com/stretchr/testify v1.4.0
-	golang.org/x/net v0.0.0-20191112182307-2180aed22343 // indirect
+	golang.org/x/mod v0.3.0 // indirect
+	golang.org/x/tools v0.0.0-20200611032120-1fdcbd130028 // indirect
 	moul.io/http2curl v1.0.0 // indirect
 )
